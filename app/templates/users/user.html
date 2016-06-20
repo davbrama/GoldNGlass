@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <img src="{{ user.avatar }}"/><br/>
+    Email: {{ user.email }}<br/>
+    Full Name: {{ user.fullname }}<br/>
+    User Name: {{ user.nickname }}
+{% endblock %}

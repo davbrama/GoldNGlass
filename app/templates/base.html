@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+      {% if title %}
+          <title>{{ title }} - GoldNGlass</title>
+      {% else %}
+          <title>Welcome to GoldNGlass</title>
+      {% endif %}
+      <style>.content {padding-top: 80px;}</style>
+      <style>.content {padding-bottom: 80px;}</style>
+  </head>
+
+  <body>
+    {%- block topbar -%}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+              <a href="{{ url_for('index') }}" class="navbar-brand">Gold And Glass</a>
+        </div>
+            <ul class="nav navbar-nav">
+            {% if g.user.is_authenticated %}
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                <li><a href="{{ url_for('user', email=g.user.email) }}">{{ g.user.nickname }}</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% endif %}
+            </ul>
+        </div>
+    </nav>
+    {%- endblock -%}
+
+    <div class="container">
+      <div class="content">
+        {% block page_header %}{% endblock %}
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+    {% block js_footer %}{% endblock %}
+  </body>
+</html>
