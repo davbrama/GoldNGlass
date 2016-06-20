@@ -6,7 +6,7 @@
     <h1>Sign In</h1>
     <p>
     {% for provider in providers %}
-        <a href="{{ url_for('authorize', provider_name=provider['provider']) }}"><img src="/static/{{ provider['logo'] }}"/></a>
+        <a href="{{ url_for('users.authorize', provider_name=provider['provider']) }}"><img src="/static/{{ provider['logo'] }}"/></a>
     {% endfor %}
     </p>
 </div>

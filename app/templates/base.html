@@ -24,10 +24,10 @@
         </div>
             <ul class="nav navbar-nav">
             {% if g.user.is_authenticated %}
-                <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                <li><a href="{{ url_for('user', email=g.user.email) }}">{{ g.user.nickname }}</a></li>
+                <li><a href="{{ url_for('users.logout') }}">Logout</a></li>
+                <li><a href="{{ url_for('users.user', email=g.user.email) }}">{{ g.user.nickname }}</a></li>
             {% else %}
-                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('users.login') }}">Login</a></li>
             {% endif %}
             </ul>
         </div>

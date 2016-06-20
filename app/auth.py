@@ -20,7 +20,7 @@ class OAuthSignIn(object):
         )
 
     def get_callback_url(self):
-        return url_for('callback', provider_name=self.provider_name, _external=True)
+        return url_for('users.callback', provider_name=self.provider_name, _external=True)
 
     def authorize(self):
         return redirect(self.service.get_authorize_url(

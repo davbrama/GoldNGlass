@@ -27,6 +27,6 @@
     </div>
     </form>
     {% else %}
-        <h2>Please <a href="{{ url_for('login') }}">Login</a> to post a comment</h2>
+        <h2>Please <a href="{{ url_for('users.login') }}">Login</a> to post a comment</h2>
     {% endif %}
 {% endblock %}

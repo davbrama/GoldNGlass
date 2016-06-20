@@ -12,9 +12,10 @@ lm = LoginManager()
 
 
 def register_blueprints(app):
-    from app.views import docviews, posts
+    from app.views import docviews, posts, users
     from app.models import User, Post, Comment
     app.register_blueprint(posts)
+    app.register_blueprint(users)
 
 
 register_blueprints(app)
