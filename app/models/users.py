@@ -3,15 +3,13 @@ from app import db
 
 
 class User(db.Document):
-    _ADMIN = True
-    _STANDART_USER = False
     email = db.EmailField(required=True, unique=True, primary_key=True)
     nickname = db.StringField(required=True)
     fullname = db.StringField()
     avatar = db.URLField()
     last_seen = db.DateTimeField(default=datetime.datetime.utcnow(), required=True)
     active = db.BooleanField(default=True)
-    admin = db.BooleanField(default=_STANDART_USER)
+    admin = db.BooleanField(default=False)
 
     @property
     def is_authenticated(self):

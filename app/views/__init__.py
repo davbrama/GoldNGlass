@@ -1,7 +1,8 @@
 from .docviews import posts
-from .userviews import *
+from .userviews import users
+from .admin import admin
 from app import app, lm
-from flask import g
+from flask import g, redirect, url_for
 from datetime import datetime
 from flask_login import current_user
 from app.models import User

@@ -19,10 +19,10 @@
               {% endif %}
             <div class="input">
                 {% if field.name == "body" %}
-                {{ field(rows=10, cols=40, class="form-control") }}
-              {% else %}
-                {{ field() }}
-              {% endif %}
+                    {{ field(rows=10, cols=40, class="form-control") }}
+                {% else %}
+                    {{ field(class="form-control") }}
+                {% endif %}
             </div>
             </div>
             {% endif %}

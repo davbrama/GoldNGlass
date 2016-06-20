@@ -29,6 +29,9 @@
             {% else %}
                 <li><a href="{{ url_for('users.login') }}">Login</a></li>
             {% endif %}
+            {% if g.user.admin %}
+                <li><a href="{{ url_for('admin.index') }}">Admin</a></li>
+            {% endif %}
             </ul>
         </div>
     </nav>
