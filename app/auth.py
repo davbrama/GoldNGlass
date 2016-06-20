@@ -1,6 +1,5 @@
 from flask import url_for, current_app, redirect, request, jsonify
 from rauth import OAuth2Service
-from rauth.utils import parse_utf8_qsl
 import json
 
 

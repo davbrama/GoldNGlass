@@ -12,15 +12,16 @@ lm = LoginManager()
 
 
 def register_blueprints(app):
-    from app.views import docviews, posts, users
+    from app.views import docviews, posts, users, admin
     from app.models import User, Post, Comment
     app.register_blueprint(posts)
     app.register_blueprint(users)
+    app.register_blueprint(admin)
 
 
 register_blueprints(app)
 lm.init_app(app)
-lm.login_view = 'login'
+lm.login_view = 'users.login'
 
 if __name__ == '__main__':
     app.run()
