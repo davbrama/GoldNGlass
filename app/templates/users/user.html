@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <img src="{{ user.avatar }}"/><br/>
-    Email: {{ user.email }}<br/>
-    Full Name: {{ user.fullname }}<br/>
-    User Name: {{ user.nickname }}
+    <div class="well well-large" style="height: 140px;">
+        <div class="pull-right">
+            <img src="{{ user.avatar }}" class="img-polaroid"/>
+        </div>
+        <h1>{{ user.nickname }}</h1>
+        <ul>
+            <li>Email: {{ user.email }}</li>
+            <li>Full Name: {{ user.fullname }}</li>
+        </ul>
+    </div>
 {% endblock %}

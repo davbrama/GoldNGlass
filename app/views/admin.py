@@ -5,7 +5,7 @@ from app.utils import admin_required
 from flask_mongoengine.wtf import model_form
 
 from flask_login import login_required
-from app.models import Post, BlogPost, Image, Video
+from app.models import Post
 from slugify import slugify
 
 admin = Blueprint('admin', __name__, template_folder='templates')
@@ -24,9 +24,7 @@ class Detail(MethodView):
     decorators = [login_required, admin_required]
 
     class_map = {
-        'post': BlogPost,
-        'video': Video,
-        'image': Image,
+        'post': Post
     }
 
     def get_context(self, slug=None):

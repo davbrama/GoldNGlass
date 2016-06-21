@@ -2,10 +2,10 @@ from .docviews import posts
 from .userviews import users
 from .admin import admin
 from app import app, lm, babel
-from flask import g, redirect, url_for, request
+from flask import g, redirect, url_for, request, jsonify
 from datetime import datetime
 from flask_login import current_user
-from app.models import User
+from app.models import User, Post
 
 
 @babel.localeselector

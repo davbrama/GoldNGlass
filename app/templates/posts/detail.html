@@ -21,7 +21,9 @@
     <label for="myTags">Tags:</label>
     <ul class="list-inline tagit">
         {% for tag in post.tags %}
+        <a href="{{ url_for('posts.tag', tag=tag) }}">
         <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-read-only"><span class="tagit-label"><strong>{{ tag }}</strong></span></li>
+        </a>
         {% endfor %}
     </ul>
     <hr>
