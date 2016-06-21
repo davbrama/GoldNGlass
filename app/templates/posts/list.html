@@ -4,11 +4,12 @@
     <div class="col-sm-1 col-md-1">
     <ul id="taglist" class="list-group"></ul>
     </div>
-    <div class="col-sm-11 col-md-11">
+    <div class="col-sm-2 col-md-2"></div>
+    <div class="col-sm-9 col-md-9">
     {% for post in posts %}
         <h2><a href="{{ url_for('posts.detail', slug=post.slug) }}">{{ post.title }}</a></h2>
         {% if post.body %}
-            <p>{{ post.body|truncate(100) }}</p>
+            <p>{{ post.body|truncate(100)|replace("=", '')|replace("-",'') }}</p>
         {% endif %}
         {% if post.embed_code %}
             {{ post.embed_code|safe() }}

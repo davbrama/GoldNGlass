@@ -2,8 +2,9 @@ from flask import Flask
 from flask_mongoengine import MongoEngine
 from flask_login import LoginManager
 from flask_babel import Babel
+from flask_misaka import Misaka
 
-
+md = Misaka()
 app = Flask(__name__)
 app.config.from_object('config')
 
@@ -11,6 +12,7 @@ app.config.from_object('config')
 db = MongoEngine(app)
 lm = LoginManager()
 babel = Babel(app)
+md.init_app(app)
 
 def register_blueprints(app):
     from app.views import docviews, posts, users, admin

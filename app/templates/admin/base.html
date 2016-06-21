@@ -13,7 +13,7 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        {% for type in ('post', 'image', 'video') %}
+                        {% for type in ('post',) %}
                         <li><a href="{{ url_for('admin.create', type=type) }}">{{ type|title }}</a></li>
                         {% endfor %}
                     </ul>

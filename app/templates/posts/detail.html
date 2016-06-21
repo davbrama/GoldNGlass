@@ -9,13 +9,7 @@
 
 {% block content %}
     {% if post.body %}
-        <p>{{ post.body }}<p>
-    {% endif %}
-    {% if post.embed_code %}
-        {{ post.embed_code|safe() }}
-    {% endif %}
-    {% if post.image_url %}
-        <p><img src="{{ post.image_url }}"/></p>
+        <p>{{ post.body|markdown(escape=True) }}<p>
     {% endif %}
     <p>{{ post.created_at.strftime('%H:%M %Y-%m-%d') }}</p>
     <label for="myTags">Tags:</label>

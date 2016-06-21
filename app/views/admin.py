@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect, render_template, url_for
 from flask.views import MethodView
 from app.utils import admin_required
-
+import json
 from flask_mongoengine.wtf import model_form
 
 from flask_login import login_required
@@ -69,6 +69,14 @@ class Detail(MethodView):
 
         return render_template('admin/detail.html', **context)
 
+    def delete(self, slug):
+        context = self.get_context(slug)
+        post = context.get('post')
+        post.delete()
+        return json.dumps({'success': True}), 204, {'ContentType': 'application/json'}
+
+
 admin.add_url_rule('/admin/', view_func=List.as_view('index'))
 admin.add_url_rule('/admin/create/', defaults={'slug': None}, view_func=Detail.as_view('create'))
 admin.add_url_rule('/admin/<slug>/', view_func=Detail.as_view('edit'))
+admin.add_url_rule('/admin/<slug>/', view_func=Detail.as_view('delete'))

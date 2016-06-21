@@ -11,9 +11,28 @@
       <tr>
         <th><a href="{{ url_for('admin.edit', slug=post.slug) }}">{{ post.title }}</a></th>
         <td>{{ post.created_at.strftime('%Y-%m-%d') }}</td>
-        <td><a href="{{ url_for('admin.edit', slug=post.slug) }}" class="btn primary">Edit</a></td>
+        <td>
+            <a href="{{ url_for('admin.edit', slug=post.slug) }}" class="btn primary">Edit</a>
+            <button class="btn btn-danger" onclick="confirmdelete('{{ post.title }}','{{ url_for('admin.delete', slug=post.slug) }}')">Delete</button>
+        </td>
       </tr>
     {% endfor %}
     </tbody>
   </table>
+{% endblock %}
+{% block js_footer %}
+<script>
+function confirmdelete(posttitle, deleteurl) {
+    if (confirm('Are you sure you want to delete the post: '+posttitle+'?')) {
+        $.ajax({
+            url: deleteurl,
+            type: 'DELETE',
+            success: function (result) {
+                console.log(result);
+                location.reload();
+            }
+        });
+    }
+}
+</script>
 {% endblock %}

@@ -2,15 +2,21 @@ from flask import Blueprint, request, redirect, render_template, url_for, g, jso
 from flask.views import MethodView, View
 from app.models import Post, Comment, User
 from flask_mongoengine.wtf import model_form
+from pymongo.errors import OperationFailure
 
 
 posts = Blueprint('posts', __name__, template_folder='templates')
 
+
 class Search(View):
     def dispatch_request(self):
         query = request.args.get('search')
-        posts = Post.objects.search_text(query).order_by('$text_score')
-        return render_template('posts/list.html', posts=posts)
+        try:
+            posts = Post.objects.search_text(query).order_by('$text_score')
+            return render_template('posts/list.html', posts=posts)
+        except OperationFailure:
+            return redirect(url_for('index'))
+
 
 class Tag(View):
     def dispatch_request(self, tag):
@@ -20,7 +26,7 @@ class Tag(View):
 
 class Taglist(View):
     def dispatch_request(self):
-        return jsonify(list(Post.get_all_tags()))
+        return jsonify(sorted(list(Post.get_all_tags())))
 
 
 class ListView(MethodView):
