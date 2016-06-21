@@ -39,7 +39,12 @@ class OAuthSignIn(object):
                                                           decoder=self.decoder)
         else:
             oauth_session = self.service.get_auth_session(data=data)
-        return oauth_session.get('').json()
+        resp = oauth_session.get('').json()
+        params = current_app.config['OAUTH_PROVIDERS'][self.provider_name]['params']
+        logged_user = {}
+        for key in params.keys():
+            logged_user[key] = eval('resp' + params[key])
+        return logged_user
 
     def decoder(self, r):
         decoder_name = self.config.get('decoder')

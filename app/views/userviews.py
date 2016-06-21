@@ -5,6 +5,7 @@ from app.models import User
 from app.auth import OAuthSignIn
 from mongoengine import DoesNotExist
 from flask.views import MethodView
+from flask_babel import gettext as _
 
 users = Blueprint('users', __name__, template_folder='templates')
 
@@ -17,7 +18,7 @@ class Login(MethodView):
                      provider
                      in app.config['OAUTH_PROVIDERS'].keys()]
         return render_template('users/login.html',
-                               title='Sign In',
+                               title=_('Sign In'),
                                providers=providers)
 
 
@@ -34,14 +35,10 @@ class Callback(MethodView):
         if not current_user.is_anonymous:
             return redirect(url_for('index'))
         oauth = OAuthSignIn(provider_name=provider_name)
-        resp = oauth.callback()
-        if not resp:
-            flash('Authentication failed.')
+        logged_user = oauth.callback()
+        if not logged_user:
+            flash(_('Authentication failed.'))
             return redirect(url_for('index'))
-        params = app.config['OAUTH_PROVIDERS'][provider_name]['params']
-        logged_user = {}
-        for key in params.keys():
-            logged_user[key] = eval('resp'+params[key])
         try:
             user = User.objects.get(email=logged_user['email'])
         except DoesNotExist:

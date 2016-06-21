@@ -15,7 +15,7 @@
         <p>
             {{ post.created_at.strftime('%H:%M %Y-%m-%d') }} |
             {% with total=post.comments|length %}
-                {{ total }} comment {%- if total > 1 %}s{%- endif -%}
+                {% trans total %}{{ total }} comment{% pluralize %}{{ total }} comments{% endtrans %}
             {% endwith %}
         </p>
     {% endfor %}

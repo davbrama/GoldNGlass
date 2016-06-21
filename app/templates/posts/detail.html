@@ -19,7 +19,7 @@
     {% endif %}
     <p>{{ post.created_at.strftime('%H:%M %Y-%m-%d') }}</p>
     <hr>
-    <h2>Comments</h2>
+    <h2>{{ _('Comments') }}</h2>
     {% if post.comments %}
     {% for comment in post.comments %}
        {% include 'posts/comment.html' %}
@@ -27,7 +27,7 @@
     {% endif %}
     <hr/>
     {% if form %}
-    <h2>Add a comment</h2>
+    <h2>{{ _('Add a comment') }}</h2>
     <form action="." method="post">
     {{ forms.render(form) }}
     <div class="actions">
@@ -35,6 +35,8 @@
     </div>
     </form>
     {% else %}
-        <h2>Please <a href="{{ url_for('users.login') }}">Login</a> to post a comment</h2>
+        {% autoescape false %}
+        <h2>{{ _('Please %(login)s to post a comment', login='<a href="%s">%s</a>' % (url_for('users.login'), _('Login'))) }}</h2>
+        {% endautoescape %}
     {% endif %}
 {% endblock %}

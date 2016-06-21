@@ -1,11 +1,16 @@
 from .docviews import posts
 from .userviews import users
 from .admin import admin
-from app import app, lm
-from flask import g, redirect, url_for
+from app import app, lm, babel
+from flask import g, redirect, url_for, request
 from datetime import datetime
 from flask_login import current_user
 from app.models import User
+
+
+@babel.localeselector
+def get_locale():
+    return request.accept_languages.best_match(app.config['LANGUAGES'].keys())
 
 
 @app.before_request

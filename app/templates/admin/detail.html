@@ -14,7 +14,7 @@
     {{ forms.render(form) }}
     <div class="actions">
       <input type="submit" class="btn primary" value="save">
-      <a href="{{ url_for("admin.index") }}" class="btn secondary">Cancel</a>
+      <a href="{{ url_for("admin.index") }}" class="btn secondary">{{ _('Cancel') }}</a>
     </div>
   </form>
 {% endblock %}

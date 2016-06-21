@@ -16,6 +16,7 @@ manager.add_command("runserver", Server(
 
 @manager.command
 def grantadmin(email):
+    "Grant admin privileges to <email>"
     user = User.objects(email=email)[0]
     user.admin = True
     user.save()
@@ -23,9 +24,26 @@ def grantadmin(email):
 
 @manager.command
 def revokeadmin(email):
+    "Revoke admin privileges from <email>"
     user = User.objects(email=email)[0]
     user.admin = False
     user.save()
+
+
+@manager.command
+def makemessages(language):
+    "Create translation dictionary for <language>"
+    pybabel = '/usr/bin/env pybabel'
+    os.system(pybabel + ' extract -F babel.cfg -k lazy_gettext -o messages.pot app')
+    os.system(pybabel + ' init -i messages.pot -d app/translations -l ' + language)
+    os.unlink('messages.pot')
+
+
+@manager.command
+def compilemessages():
+    "Compile translations"
+    pybabel = '/usr/bin/env pybabel'
+    os.system(pybabel + ' compile -d app/translations')
 
 
 if __name__ == "__main__":
