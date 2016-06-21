@@ -2,12 +2,21 @@
 
 {% block content %}
 
-<div id="sign-in">
-    <h1>Sign In</h1>
+<div id="sign-in" class="well">
+    <h3>{{ _('Sign in using:') }}</h3>
     <p>
+    <div class="control-group">
     {% for provider in providers %}
-        <a href="{{ url_for('users.authorize', provider_name=provider['provider']) }}"><img src="/static/{{ provider['logo'] }}"/></a>
+        {{ loop.cycle('<div class="row">','','')|safe }}
+        <div class="col-sm-4">
+            <a href="{{ url_for('users.authorize', provider_name=provider['provider']) }}">
+                <img src="/static/{{ provider['logo'] }}" class="img-responsive" style="margin:2px;"/>
+            </a>
+        </div>
+        {{ loop.cycle('','','</div>')|safe }}
     {% endfor %}
+    {% if providers|length % 3 != 0 %}</div>{% endif %}
+    </div>
     </p>
 </div>
 {% endblock %}

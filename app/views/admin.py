@@ -63,6 +63,7 @@ class Detail(MethodView):
         if form.validate():
             post = context.get('post')
             form.populate_obj(post)
+            post.tags = request.form['postTags'].split(',')
             post.slug = slugify(post.title)
             post.save()
 

@@ -41,6 +41,8 @@ class Callback(MethodView):
             return redirect(url_for('index'))
         try:
             user = User.objects.get(email=logged_user['email'])
+            user.avatar = logged_user['avatar']
+            user.save()
         except DoesNotExist:
             user = User(**logged_user)
             user.save()

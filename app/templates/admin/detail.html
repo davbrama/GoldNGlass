@@ -18,3 +18,10 @@
     </div>
   </form>
 {% endblock %}
+{% block js_footer %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#myTags").tagit({fieldName: "postTags", singleField: true});
+});
+</script>
+{% endblock %}

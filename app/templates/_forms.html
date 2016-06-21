@@ -20,6 +20,12 @@
             <div class="input">
                 {% if field.name == "body" %}
                     {{ field(rows=10, cols=40, class="form-control") }}
+                {% elif field.name == "tags" %}
+                     <ul id="myTags" style="border: none">
+                    {% for subfield in field.entries %}
+                        <li>{{ subfield.data }}</li>
+                    {% endfor %}
+                    </ul>
                 {% else %}
                     {{ field(class="form-control") }}
                 {% endif %}
@@ -31,3 +37,4 @@
     {% endif %}
 </fieldset>
 {% endmacro %}
+
