@@ -32,7 +32,7 @@
         $.get('{{ url_for('posts.taglist') }}', function (data, status) {
             for (var t in data) {
                 $("#taglist").append(
-                        '<li><a href="'+$SCRIPT_ROOT+'/tag/'+data[t]+'">'+data[t]+'</a></li>'
+                        '<li><a href="{{ url_for('posts.search') }}?tag='+data[t]+'">'+data[t]+'</a></li>'
                 );
         }
         });

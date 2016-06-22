@@ -4,14 +4,14 @@ from flask import redirect, url_for, g, render_template, flash, request, Bluepri
 from app.models import User
 from app.auth import OAuthSignIn
 from mongoengine import DoesNotExist
-from flask.views import MethodView
+from flask.views import MethodView, View
 from flask_babel import gettext as _
 
 users = Blueprint('users', __name__, template_folder='templates')
 
 
-class Login(MethodView):
-    def get(self):
+class Login(View):
+    def dispatch_request(self):
         if g.user is not None and g.user.is_authenticated:
             return redirect(url_for('index'))
         providers = [{'provider': provider, 'logo': app.config['OAUTH_PROVIDERS'][provider]['conf']['logo_normal']} for
@@ -22,16 +22,16 @@ class Login(MethodView):
                                providers=providers)
 
 
-class Authorize(MethodView):
-    def get(self, provider_name):
+class Authorize(View):
+    def dispatch_request(self, provider_name):
         if not current_user.is_anonymous:
             return redirect(url_for('index'))
         oauth = OAuthSignIn(provider_name=provider_name)
         return oauth.authorize()
 
 
-class Callback(MethodView):
-    def get(self, provider_name):
+class Callback(View):
+    def dispatch_request(self, provider_name):
         if not current_user.is_anonymous:
             return redirect(url_for('index'))
         oauth = OAuthSignIn(provider_name=provider_name)

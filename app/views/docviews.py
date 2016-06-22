@@ -10,18 +10,20 @@ posts = Blueprint('posts', __name__, template_folder='templates')
 
 class Search(View):
     def dispatch_request(self):
-        query = request.args.get('search')
+        posts = Post.objects()
+        if 'tag' in request.args:
+            tag = request.args.get('tag')
+            posts = posts.filter(tags=tag)
+        if 'search' in request.args:
+            query = request.args.get('search')
+            try:
+                posts = posts.search_text(query).order_by('$text_score')
+            except OperationFailure:
+                return redirect(url_for('index'))
         try:
-            posts = Post.objects.search_text(query).order_by('$text_score')
             return render_template('posts/list.html', posts=posts)
         except OperationFailure:
             return redirect(url_for('index'))
-
-
-class Tag(View):
-    def dispatch_request(self, tag):
-        posts = Post.objects(tags=tag)
-        return render_template('posts/list.html', posts=posts)
 
 
 class Taglist(View):
@@ -76,5 +78,4 @@ class DetailView(MethodView):
 posts.add_url_rule('/', view_func=ListView.as_view('list'))
 posts.add_url_rule('/<slug>/', view_func=DetailView.as_view('detail'))
 posts.add_url_rule('/taglist', view_func=Taglist.as_view('taglist'))
-posts.add_url_rule('/tag/<tag>', view_func=Tag.as_view('tag'))
 posts.add_url_rule('/search', view_func=Search.as_view('search'))
