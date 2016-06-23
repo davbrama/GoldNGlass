@@ -1,0 +1,8 @@
+{% macro render(user) %}
+<a href="{{ url_for('users.user', email=user.email) }}">
+    <figure class="thumbnail">
+        <img class="img-responsive" src="{{ user.avatar }}"/>
+        <figcaption class="text-center">{{ user.nickname }}</figcaption>
+    </figure>
+</a>
+{% endmacro %}

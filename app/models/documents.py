@@ -3,11 +3,16 @@ from flask import url_for, g
 from app import db
 from .users import User
 
+class Replay(db.EmbeddedDocument):
+    created_at = db.DateTimeField(default=datetime.datetime.utcnow(), required=True)
+    body = db.StringField(verbose_name="Comment", required=True)
+    author = db.ReferenceField(User)
 
 class Comment(db.EmbeddedDocument):
     created_at = db.DateTimeField(default=datetime.datetime.utcnow(), required=True)
     body = db.StringField(verbose_name="Comment", required=True)
     author = db.ReferenceField(User)
+    replays = db.ListField(db.EmbeddedDocumentField('Replay'))
 
 
 class Post(db.Document):

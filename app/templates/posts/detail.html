@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% import "_forms.html" as forms %}
-
+{% import "posts/_comment.html" as comment_render %}
 
 {% block page_header %}
   <div class="page-header">
@@ -25,7 +25,7 @@
     <h2>{{ _('Comments') }}</h2>
     {% if post.comments %}
     {% for comment in post.comments %}
-       {% include 'posts/comment.html' %}
+       {{ comment_render.render(comment, loop.index0) }}
     {% endfor %}
     {% endif %}
     <hr/>

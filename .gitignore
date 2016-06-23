@@ -3,3 +3,4 @@ config.py
 .idea
 venv
 __pycache__
+*.sublime-project

@@ -1,0 +1,25 @@
+{% macro render(comment, index) %}
+{% import 'users/_userfigure.html' as user %}
+{% import 'posts/_comment-body.html' as comment_body %}
+
+<section class="comment-list">
+    <article class="row">
+        <div class="col-md-2 col-sm-2 hidden-xs">
+            {{ user.render(comment.author) }}
+        </div>
+        <div class="col-md-10 col-sm-10">
+            {{ comment_body.render(comment) }}
+        </div>
+    </article>
+    {% for replay in comment.replays %}
+    <article class="row">
+        <div class="col-md-2 col-sm-2 col-md-offset-1 col-sm-offset-1 hidden-xs">
+            {{ user.render(comment.author) }}
+        </div>
+        <div class="col-md-9 col-sm-9">
+            {{ comment_body.render(comment) }}
+        </div>
+    </article>
+    {% endfor %}
+</section>
+{% endmacro %}

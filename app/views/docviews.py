@@ -1,6 +1,6 @@
 from flask import Blueprint, request, redirect, render_template, url_for, g, jsonify
 from flask.views import MethodView, View
-from app.models import Post, Comment, User
+from app.models import Post, Comment, User, Replay
 from flask_mongoengine.wtf import model_form
 from pymongo.errors import OperationFailure
 
@@ -40,7 +40,8 @@ class ListView(MethodView):
 
 class DetailView(MethodView):
 
-    form = model_form(Comment, exclude=['created_at', 'author'])
+    form = model_form(Comment, exclude=['created_at', 'author', 'replays'])
+    replay_form = model_form(Replay, exclude=['created_at', 'author'])
 
     def get_context(self, slug):
         post = Post.objects.get_or_404(slug=slug)
@@ -49,6 +50,7 @@ class DetailView(MethodView):
         context = {
             "post": post,
             "form": form if not g.user.is_anonymous else None,
+
             "author": User.objects(email=g.user.email)[0] if not g.user.is_anonymous else None
         }
 

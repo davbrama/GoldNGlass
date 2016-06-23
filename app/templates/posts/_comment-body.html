@@ -1,0 +1,18 @@
+{% macro render(comment) %}
+<div class="panel panel-default }}">
+    <div class="panel-body">
+        <header class="text-{{ _('left') }}">
+            <div class="comment-user"><i class="fa fa-user"></i>{{ comment.author.nickname }}</div>
+            <time class="comment-date" datetime="{{ comment.created_at.strftime('%d-%m-%Y %H:%M') }}">
+                <i class="fa fa-clock-o"></i> {{ comment.created_at.strftime('%Y-%m-%d') }}
+            </time>
+        </header>
+        <div class="comment-post">
+            <p>
+                {{ comment.body }}
+            </p>
+        </div>
+        <p class="text-{{ _('right') }}"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> {{ _('reply') }}</a></p>
+    </div>
+</div>
+{% endmacro %}
